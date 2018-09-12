@@ -1,3 +1,5 @@
+#Sort list in Python 3.6 without using built in functions. Code does not have to be efficient.
+
 lis = [6, 3, 2, 8, 5]
 
 def sort(x):
