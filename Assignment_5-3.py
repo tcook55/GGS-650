@@ -35,10 +35,17 @@ def PIP(poly, point):
     check_line = LineSegment(point, check_point)
     lines = get_LineSegments(poly)
     cross_check = 0
+    print ("Check lines")
     for check in lines:
         if cross(check, check_line) == 1:
+            print ("Start point: " + str(check.start_point.x) + ", " + str(check.start_point.y))
+            print ("End point: " + str(check.end_point.x) + ", " + str(check.end_point.y))
+            print ("Start point: " + str(check_line.start_point.x) + ", " + str(check_line.start_point.y))
+            print ("End point: " + str(check_line.end_point.x) + ", " + str(check_line.end_point.y))
+
             cross_check += 1
-    if cross_check % 2 == 0 and cross_check != 0:
+        print (cross_check)
+    if cross_check % 2 == 0:
         return 0
     else:
         return 1
@@ -59,16 +66,24 @@ def rhs(a, b, c):
         return -1
 
 def cross(a, b):
+    '''
+    print ("----------")
+    print ("Start point: " + str(a.start_point.x) + ", " + str(a.start_point.y))
+    print ("End point: " + str(a.end_point.x) + ", " + str(a.end_point.y))
+    print ("Start point: " + str(b.start_point.x) + ", " + str(b.start_point.y))
+    print ("End point: " + str(b.end_point.x) + ", " + str(b.end_point.y))
+    '''
     originx = a.start_point.x
     originy = a.start_point.y
-    a.end_point.x -= originx
-    a.end_point.y -= originy
-    b.start_point.x -= originx
-    b.start_point.y -= originy
-    b.end_point.x -= originx
-    b.end_point.y -= originy
-    check_start = (a.end_point.x * b.start_point.y) - (a.end_point.y * b.start_point.x)
-    check_end = (a.end_point.x * b.end_point.y) - (a.end_point.y * b.end_point.x)
+    originendx = a.end_point.x - originx
+    originendy = a.end_point.y - originy
+    otherstartx = b.start_point.x - originx
+    otherstarty = b.start_point.y - originy
+    otherendx = b.end_point.x - originx
+    otherendy = b.end_point.y - originy
+    check_start = (originendx * otherstarty) - (originendy * otherstartx)
+    check_end = (originendx * otherendy) - (originendy * otherendx)
+    print (check_start, check_end)
 
     if check_start > 0 and check_end > 0:
         return 0
@@ -77,17 +92,14 @@ def cross(a, b):
     else:
         return 1
     
-my_point1 = Point(10,1)
-my_point2 = Point(8,12)
-my_point3 = Point(-1,4)
-my_point4 = Point(-5,-3)
-my_point5 = Point(6,-4)
+my_point1 = Point(5,1)
+my_point2 = Point(6,6)
+my_point3 = Point(1,5)
+my_point4 = Point(-2,-3)
+my_point5 = Point(5,-4)
 
-interior_point = Point(6,3)
-exterior_point = Point(12,5)
-
-#Interior point is (6, 3)
-#Exterior point is (12, 5)
+interior_point = Point(1,1)
+exterior_point = Point(25,5)
 
 line1 = LineSegment(my_point1, my_point2)
 line2 = LineSegment(my_point3, my_point4)
